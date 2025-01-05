@@ -1,0 +1,11 @@
+//1.call, apply and bind Method
+
+let name = {
+    firstName:"Ritu",
+    lastName:"Dubey",
+    printFullName : function(){
+        console.log(this.firstName + "" + this.lastName);
+    }
+}
+
+name.printFullName();
