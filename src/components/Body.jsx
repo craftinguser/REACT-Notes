@@ -1,13 +1,14 @@
 import RestaurantCard from "./RestarauntCard";
-import resList from "../utils/mockData";
 import { useState, useEffect} from "react";
+import { Shimmer } from "./Shimmer";
+
 
 // State Variable - Hooks - pre built function 
  
 
 // using id for keys is best practice, dont use indexes for keys
 const Body = () => {
-    const [ listOfRestaraunt, setListOfRestaraunt] = useState(resList);
+    const [ listOfRestaraunt, setListOfRestaraunt] = useState([]);
 
 useEffect(()=>{
   fetchData();
@@ -19,9 +20,12 @@ const fetchData = async ()=>{
   );
 
   const json = await data.json();
-  console.log("api",json);
+  console.log("api",json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
+  setListOfRestaraunt(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
 }
-
+if(listOfRestaraunt.length ===0){
+  return<Shimmer/>
+}
   return (
     <div className="body">
       <div className="search">Search</div>
@@ -35,7 +39,7 @@ const fetchData = async ()=>{
       </div>
       <div className="restro-container">
         {listOfRestaraunt.map((restaurant) => (
-          <RestaurantCard key={restaurant.id} resData={restaurant} />
+          <RestaurantCard key={restaurant.info.cloudinaryImageId} resData={restaurant} />
         ))}
       </div>
     </div>
