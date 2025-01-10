@@ -1,45 +1,84 @@
 import RestaurantCard from "./RestarauntCard";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { Shimmer } from "./Shimmer";
 
-
-// State Variable - Hooks - pre built function 
- 
-
-// using id for keys is best practice, dont use indexes for keys
 const Body = () => {
-    const [ listOfRestaraunt, setListOfRestaraunt] = useState([]);
+  const [listOfRestaraunt, setListOfRestaraunt] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [filteredRestaraunt, setFilteredRestaraunt] = useState([]);
 
-useEffect(()=>{
-  fetchData();
-    console.log("Effect state called")
-}, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-const fetchData = async ()=>{
-  const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.9615398&lng=79.2961468&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-  );
+  const fetchData = async () => {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.9615398&lng=79.2961468&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    );
+    const json = await data.json();
+    
+    // Debugging API response
+    console.log("API Response:", json);
+  
+    // Verify the correct path for restaurants
+    const restaurants =
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+  
+    if (restaurants) {
+      setListOfRestaraunt(restaurants);
+      setFilteredRestaraunt(restaurants);
+    } else {
+      console.error("Restaurants data not found in the API response.");
+    }
+  };
+  
 
-  const json = await data.json();
-  console.log("api",json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
-  setListOfRestaraunt(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-}
-if(listOfRestaraunt.length ===0){
-  return<Shimmer/>
-}
-  return (
+  return listOfRestaraunt.length === 0 ? (
+    <Shimmer />
+  ) : (
     <div className="body">
-      <div className="search">Search</div>
-      <div className ="filter">
-        <button className="filter-btn" onClick={()=>{
-          const filteredList = listOfRestaraunt.filter(
-            (res) => res.avgRating >4.5);
-          setListOfRestaraunt(filteredList)
-            console.log("Button Clicked" , filteredList)
-        }}>Top Rated Restarurant</button>
+      <div className="search-container">
+        <div className="search">
+          <input
+            type="text"
+            className="search-box"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+          <button
+            onClick={() => {
+              
+              const filteredList = listOfRestaraunt.filter((res) =>
+                res.info.name.toLowerCase().includes(searchText.toLowerCase())
+              );
+              setFilteredRestaraunt(filteredList); 
+              console.log("Filtered List",filteredList)
+            }}
+          >
+            Search
+          </button>
+        </div>
+        <div className="filter">
+          <button
+            className="filter-btn"
+            onClick={() => {
+              // Filter restaurants with avgRating > 4.5 from the original list
+              const filteredList = listOfRestaraunt.filter(
+                (res) => res.info.avgRating > 4.5
+              );
+              setFilteredRestaraunt(filteredList); 
+            }}
+          >
+            Top Rated Restaurants
+          </button>
+        </div>
       </div>
       <div className="restro-container">
-        {listOfRestaraunt.map((restaurant) => (
-          <RestaurantCard key={restaurant.info.cloudinaryImageId} resData={restaurant} />
+        {filteredRestaraunt.map((restaurant) => (
+          <RestaurantCard
+            key={restaurant.info.cloudinaryImageId}
+            resData={restaurant}
+          />
         ))}
       </div>
     </div>
