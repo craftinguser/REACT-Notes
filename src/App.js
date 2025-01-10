@@ -4,9 +4,10 @@ import Header from "./components/Header";
 import Body from "./components/Body";
 import { Footer } from "./components/Footer";
 import { createBrowserRouter, RouterProvider,Outlet} from "react-router-dom";
-import AboutPage from "./components/About";
-import ContactPage from "./components/Contact";
-import Error from "./components/Error"
+import AboutPage from "./components/pages/About";
+import ContactPage from "./components/pages/Contact";
+import Error from "./components/pages/Error";
+import { RestarauntMenu } from "./components/pages/RestarauntMenu";
 
 
 const AppLayout = () =>{
@@ -25,7 +26,8 @@ const appRouter = createBrowserRouter([
   children:[
     {path:"/", element:<Body/> , errorElement:<Error/> },
      {path:"about", element:<AboutPage/> , errorElement:<Error/> },
-  {path:"contact", element:<ContactPage/> , errorElement:<Error/>  }
+  {path:"contact", element:<ContactPage/> , errorElement:<Error/>  },
+  {path:"/restaraunt/:resId", element:<RestarauntMenu/>  }
 ],
    errorElement:<Error/>},
  
