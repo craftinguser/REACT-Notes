@@ -1,5 +1,6 @@
 import React from "react";
 import "../style/AboutPage.css";
+import User from "../../components/pages/User" 
 
 const AboutPage = () => {
   return (

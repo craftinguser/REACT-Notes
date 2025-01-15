@@ -1,0 +1,103 @@
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ margin-top: 15px;
+    margin: 0 auto;
+  }
+  
+  /* Banner Section */
+  .menu-banner {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px; /* Reduce padding around the banner */
+  }
+  
+  .menu-banner-image {
+    width: 70%; /* Reduce width to make the image smaller */
+    max-height: 200px; /* Add a max-height to ensure the image isn't too large */
+    object-fit: cover; /* Ensure the image scales nicely */
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .menu-title {
+    font-size: 1.5rem; /* Reduce font size */
+    color: #343a40;
+    margin-bottom: 5px; /* Reduce spacing below the title */
+  }
+  
+  .menu-details {
+    font-size: 1rem; /* Reduce font size */
+    color: #495057;
+    margin-bottom: 10px; /* Reduce spacing below details */
+  }
+  
+  .menu-details {
+    font-size: 1.2rem;
+    color: #495057;
+  }
+  
+  /* Menu List Section */
+  .menu-list-container {
+    width: 100%;
+    overflow-y: auto;
+    max-height: 400px;
+  }
+  
+  .menu-section-title {
+    font-size: 1.5rem;
+    color: #343a40;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .menu-list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+  }
+  
+  .menu-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background-color: #fff;
+  }
+  
+  .menu-item-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    margin-right: 20px;
+  }
+  
+  .menu-item-details {
+    flex: 1;
+  }
+  
+  .menu-item-name {
+    font-size: 1.2rem;
+    color: #212529;
+    margin-bottom: 5px;
+  }
+  
+  .menu-item-description {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 5px;
+  }
+  
+  .menu-item-price {
+    font-size: 1rem;
+    color: #28a745;
+  }
+  
